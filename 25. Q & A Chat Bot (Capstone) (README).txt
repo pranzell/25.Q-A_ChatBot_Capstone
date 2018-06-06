@@ -1,0 +1,22 @@
+25. Q & A Chat Bot (Capstone)
+
+This is a Q&A Conversation Bot based on NLP tools which responds to user queries by pointing to a paragraph from a bunch of documents. This in turns an unsupervised learning problem into supervised learning using negative sampling. 
+
+INPUT : Question
+OUTPUT: A paragraph
+PROCESS: Found a matching Document, then found a matching paragraph that could answer the question
+
+
+*METHOD*
+Step I: Pass a query and it will point to a Document using normalized values of (X0.BM25 + X1.TFIDF + X2.DOC2VEC) linear equation
+Step II: Which in turn will point to a paragraph (8lines) using WMD on the whole document (picked up by step I.)
+
+
+*STEPS*
+Sentence -> Document Similarity (Scores of Gensim Models) -> Neural Networks (normlized weighted logistic regression equation) -> Highes score Document -> POS tagged WMD Model -> Most similar Line -> +4 lines above, -4 lines below the most similar line to form a Paragraph.
+
+*PROCESS*
+1. Sentence to Document similarity were marked by scores given by BM_25, TFIDF, Doc2Vec models which were passed to a DNN with softmax to form a normalized logistic regression equation, which were then passed to POS tagged WMD model to get a candidate list of probable paragraphs.
+
+2. The document with highest normalized weighted score of Gensim models was passed further to get the paragraph with highest score from WMD model.
+
